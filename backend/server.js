@@ -5,13 +5,14 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors({
-   origin: 'http://localhost:1300', 
+   origin: '*',
+   methods: ['GET', 'POST', 'DELETE'], 
    credentials: true               
 }));
 
 app.use(express.json());
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/reactdb";
+const MONGO_URI = process.env.MONGO_URI || "mongodb://mongo-service:27017/reactdb";
 
 mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,

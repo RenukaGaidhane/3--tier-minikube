@@ -10,19 +10,31 @@ const App = () => {
   }, []);
 
   const fetchItems = async () => {
-    const res = await axios.get('http://localhost:5002/api/items');
-    setItems(res.data);
+    try {
+      const res = await axios.get('http://192.168.67.2:30008/api/items');
+      setItems(res.data);
+    } catch (err) {
+      console.error("Fetch error:", err.message);
+    }
   };
 
   const addItem = async () => {
-    const res = await axios.post('http://localhost:5002/api/items', { name });
-    setItems([...items, res.data]);
-    setName('');
+    try {
+      const res = await axios.post('http://192.168.67.2:30008/api/items', { name });
+      setItems([...items, res.data]);
+      setName('');
+    } catch (err) {
+      console.error("Add error:", err.message);
+    }
   };
 
   const deleteItem = async (id) => {
-    await axios.delete(`http://localhost:5002/api/items/${id}`);
-    setItems(items.filter(item => item._id !== id));
+    try {
+      await axios.delete(`http://192.168.67.2:30008/api/items/${id}`);
+      setItems(items.filter(item => item._id !== id));
+    } catch (err) {
+      console.error("Delete error:", err.message);
+    }
   };
 
   return (
