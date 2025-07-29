@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: react-app
 spec:
   replicas: 1
   selector:
@@ -15,23 +14,21 @@ spec:
     spec:
       containers:
         - name: backend
-          image: renukashweta/backendapp:latest
-          imagePullPolicy: Always
+          image: renukashweta/back-image:latest
           ports:
-            - containerPort: 5000
+            - containerPort: 5002
           env:
-            - name: MONGO_URL
-              value: mongodb://mongo:27017/mydb
+            - name: MONGO_URI
+              value: mongodb://mongo-service:27017/reactdb
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
-  namespace: react-app
+  name: backend-service
 spec:
-  type: NodePort
   selector:
     app: backend
   ports:
-    - port: 5000
-      targetPort: 5000
+    - protocol: TCP
+      port: 5002
+      targetPort: 5002

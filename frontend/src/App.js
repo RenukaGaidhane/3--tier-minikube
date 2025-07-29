@@ -10,18 +10,18 @@ const App = () => {
   }, []);
 
   const fetchItems = async () => {
-    const res = await axios.get('http://localhost:5000/api/items');
+    const res = await axios.get('http://localhost:5002/api/items');
     setItems(res.data);
   };
 
   const addItem = async () => {
-    const res = await axios.post('http://localhost:5000/api/items', { name });
+    const res = await axios.post('http://localhost:5002/api/items', { name });
     setItems([...items, res.data]);
     setName('');
   };
 
   const deleteItem = async (id) => {
-    await axios.delete(`http://localhost:5000/api/items/${id}`);
+    await axios.delete(`http://localhost:5002/api/items/${id}`);
     setItems(items.filter(item => item._id !== id));
   };
 

@@ -3,7 +3,12 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+   origin: 'http://localhost:1300', 
+   credentials: true               
+}));
+
 app.use(express.json());
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/reactdb";
@@ -37,4 +42,7 @@ app.delete('/api/items/:id', async (req, res) => {
     res.json({ message: 'Deleted' });
 });
 
-app.listen(5000, '0.0.0.0', () => console.log('Backend running on port 5000'));
+const PORT = process.env.PORT || 5002;
+app.listen(5002, '0.0.0.0', () => {
+     console.log('Backend running on port ${PORT}');
+});
