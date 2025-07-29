@@ -41,8 +41,8 @@ jobs:
 
     - name: Update Kubernetes manifests
       run: |
-        sed -i "s|image: .*reactapp-backend.*|image: ${{ secrets.IMAGE_NAME_BACKEND }}:${{ env.IMAGE_TAG }}|" ./k8s/backend-deployment.yaml
-        sed -i "s|image: .*reactapp-frontend.*|image: ${{ secrets.IMAGE_NAME_FRONTEND }}:${{ env.IMAGE_TAG }}|" ./k8s/frontend-deployment.yaml
+        sed -i "s|image: .*back-image.*|image: ${{ secrets.IMAGE_NAME_BACKEND }}:${{ env.IMAGE_TAG }}|" ./k8s/backend-deployment.yaml
+        sed -i "s|image: .*front-image.*|image: ${{ secrets.IMAGE_NAME_FRONTEND }}:${{ env.IMAGE_TAG }}|" ./k8s/frontend-deployment.yaml
 
     - name: Configure git
       run: |
