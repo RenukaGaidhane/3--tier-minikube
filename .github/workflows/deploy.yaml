@@ -37,13 +37,6 @@ jobs:
         sed -i "s|image: renukashweta/back-image:.*|image: renukashweta/back-image:${{ env.IMAGE_TAG }}|" k8s/backend-deployment.yaml
         sed -i "s|image: renukashweta/front-image:.*|image: renukashweta/front-image:${{ env.IMAGE_TAG }}|" k8s/frontend-deployment.yaml
 
-    - name: Commit & Push Updated Manifests
-      run: |
-        git config --global user.email "github-actions@github.com"
-        git config --global user.name "GitHub Actions"
-        git add k8s/
-        git commit -m "Update image tags to ${{ env.IMAGE_TAG }}"
-        git push
        
     - name: Commit & Push Updated Manifests
       env:
