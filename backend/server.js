@@ -14,12 +14,9 @@ app.use(express.json());
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb://mongo-service:27017/reactdb";
 
-mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => console.log(' MongoDB connected'))
-.catch(err => console.error('MongoDB connection error:', err));
+mongoose.connect(MONGO_URI)
+ .then(() => console.log(' MongoDB connected'))
+ .catch(err => console.error('MongoDB connection error:', err));
 
 
 const ItemSchema = new mongoose.Schema({
