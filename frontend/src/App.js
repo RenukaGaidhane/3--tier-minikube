@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5002/api/items";
+
 const App = () => {
   const [items, setItems] = useState([]);
   const [name, setName] = useState('');
@@ -11,7 +13,7 @@ const App = () => {
 
   const fetchItems = async () => {
     try {
-      const res = await axios.get('http://192.168.67.2:30008/api/items');
+      const res = await axios.get(API_URL);
       setItems(res.data);
     } catch (err) {
       console.error("Fetch error:", err.message);
@@ -20,7 +22,7 @@ const App = () => {
 
   const addItem = async () => {
     try {
-      const res = await axios.post('http://192.168.67.2:30008/api/items', { name });
+      const res = await axios.post(API_URL, { name });
       setItems([...items, res.data]);
       setName('');
     } catch (err) {
@@ -30,7 +32,7 @@ const App = () => {
 
   const deleteItem = async (id) => {
     try {
-      await axios.delete(`http://192.168.67.2:30008/api/items/${id}`);
+      await axios.delete(`${API_URL}/${id}`);
       setItems(items.filter(item => item._id !== id));
     } catch (err) {
       console.error("Delete error:", err.message);
@@ -45,7 +47,8 @@ const App = () => {
       <ul>
         {items.map(item => (
           <li key={item._id}>
-            {item.name} <button onClick={() => deleteItem(item._id)}>Delete</button>
+            {item.name}
+            <button onClick={() => deleteItem(item._id)}>Delete</button>
           </li>
         ))}
       </ul>
